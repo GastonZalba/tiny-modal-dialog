@@ -1,5 +1,5 @@
 {
-  "name": "modal-ts",
+  "name": "tiny-modal-dialog",
   "version": "0.1.0",
   "description": "Modal dialog in TypeScript, zero runtime dependencies, no Bootstrap",
   "keywords": [
@@ -9,14 +9,15 @@
     "typescript",
     "vanilla"
   ],
-  "license": "BSD-3-Clause",
-  "type": "module",
+  "author": "Gastón Zalba",
+  "license": "MIT",
   "sideEffects": [
     "*.css"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

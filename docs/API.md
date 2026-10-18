@@ -1,10 +1,10 @@
-# API — modal-ts
+# API — tiny-modal-dialog
 
-Complete reference of the public API. Everything is exported from `modal-ts`.
+Complete reference of the public API. Everything is exported from `tiny-modal-dialog`.
 
 ```ts
-import { Modal } from 'modal-ts';
-import type { ModalOptions, ModalContent, ModalButton, ModalStrings, ModalTheme, ModalEvents } from 'modal-ts';
+import { Modal } from 'tiny-modal-dialog';
+import type { ModalOptions, ModalContent, ModalButton, ModalStrings, ModalTheme, ModalEvents } from 'tiny-modal-dialog';
 ```
 
 ## Types
@@ -254,7 +254,7 @@ modal.once('hidden', () => modal.removeAllListeners());
 ## CSS
 
 ```ts
-import 'modal-ts/modal.css';      // or 'modal-ts/modal.min.css'
+import 'tiny-modal-dialog/modal.css';      // or 'tiny-modal-dialog/modal.min.css'
 ```
 
 Customizable SCSS variables (with `!default`): colors, `z-index`, widths,

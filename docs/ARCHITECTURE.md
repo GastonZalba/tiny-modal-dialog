@@ -1,4 +1,4 @@
-# Architecture — modal-ts
+# Architecture — tiny-modal-dialog
 
 Internal design of the module. The public API is detailed in `API.md`; the
 implementation status in `PLAN.md`.
@@ -98,11 +98,16 @@ focus on `button`/`a` (the browser already handles activation), and
   effect.
 - `'static'`: visible backdrop, outside click does **not** close.
 - `false`: no backdrop and no close on outside click.
-- `movable: true`: forces `backdrop: false` (no backdrop, no close on outside click).
+- `movable: true`: forces `backdrop: false` (no backdrop, no close on outside
+  click), the container gets `pointer-events: none` so the rest of the DOM
+  stays clickable (only `.mtmodal-content` re-enables pointer events), and the
+  body scroll is **not** locked (no `mtmodal-open`, no padding compensation).
 
 ## Movable
 
-- Only with `movable: true`: the container receives `mtmodal-movable`; backdrop disabled.
+- Only with `movable: true`: the container receives `mtmodal-movable`; backdrop
+  disabled, the container is click-through (`pointer-events: none`) and the
+  body scroll stays unlocked, so the page behind remains fully interactive.
 - Same initial centering (flex/transform). On `pointerdown` over the header:
   1. `setPointerCapture`, class `mtmodal-dragging` (cursor grabbing, `user-select: none`).
   2. On the first `pointermove` with delta: switch to free positioning

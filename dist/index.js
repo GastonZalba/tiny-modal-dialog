@@ -4,7 +4,7 @@ function build(html) {
   if (!factory) factory = document.createElement("div");
   factory.innerHTML = html.trim();
   const node = factory.firstElementChild;
-  if (!node) throw new Error(`modal-ts: invalid markup "${html}"`);
+  if (!node) throw new Error(`tiny-modal-dialog: invalid markup "${html}"`);
   factory.innerHTML = "";
   return node;
 }
@@ -183,7 +183,7 @@ var _Modal = class _Modal extends Emitter {
     const appendTo = resolveElement(this._options.appendTo);
     if (!appendTo) {
       throw new Error(
-        `modal-ts: appendTo element "${String(this._options.appendTo)}" not found.`
+        `tiny-modal-dialog: appendTo element "${String(this._options.appendTo)}" not found.`
       );
     }
     this._appendTo = appendTo;
@@ -191,7 +191,7 @@ var _Modal = class _Modal extends Emitter {
       const el = resolveElement(this._options.el);
       if (!el) {
         throw new Error(
-          `modal-ts: element "${String(this._options.el)}" not found.`
+          `tiny-modal-dialog: element "${String(this._options.el)}" not found.`
         );
       }
       this.el = el;
@@ -243,9 +243,11 @@ var _Modal = class _Modal extends Emitter {
     const html = this._html;
     const container = html.container;
     this.emit("show", this);
-    this._checkScrollbar();
-    this._setScrollbar();
-    document.body.classList.add(CLASS.open);
+    if (!this._isMovable()) {
+      this._checkScrollbar();
+      this._setScrollbar();
+      document.body.classList.add(CLASS.open);
+    }
     if (this._construct) this._appendTo.appendChild(container);
     container.style.display = "block";
     container.scrollTop = 0;
@@ -285,6 +287,7 @@ var _Modal = class _Modal extends Emitter {
     this._removeEvents();
     window.clearTimeout(this._timers.scrollbar);
     this._timers.scrollbar = window.setTimeout(() => {
+      if (this._isMovable()) return;
       document.body.classList.remove(CLASS.open);
       document.body.style.paddingRight = this._originalBodyPadding;
     }, BACKDROP_TRANSITION);

@@ -210,6 +210,10 @@ body.mtmodal-open {
   opacity: var(--mtmodal-backdrop-opacity);
 }
 
+.mtmodal.mtmodal-movable {
+  pointer-events: none;
+}
+
 .mtmodal-movable .mtmodal-dialog {
   position: absolute;
   top: 50%;

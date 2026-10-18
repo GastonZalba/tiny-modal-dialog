@@ -1,4 +1,4 @@
-# Development plan — modal-ts
+# Development plan — tiny-modal-dialog
 
 Phase-by-phase implementation plan. It is updated on every delivery:
 checkbox `[x]` = done, `[ ]` = pending. The status column summarizes progress.
@@ -31,7 +31,7 @@ checkbox `[x]` = done, `[ ]` = pending. The status column summarizes progress.
 
 ## Phase 1 — Setup
 
-- [x] `package.json` (name `modal-ts`, type module, scripts, exports)
+- [x] `package.json` (name `tiny-modal-dialog`, type module, scripts, exports)
 - [x] `tsconfig.json` (strict, DOM libs, outDir typecheck)
 - [x] `tsup.config.ts` (entry `src/index.ts`, ESM + CJS + dts)
 - [x] `vitest.config.ts` (environment jsdom, include `test/**/*.test.ts`)
@@ -105,8 +105,8 @@ checkbox `[x]` = done, `[ ]` = pending. The status column summarizes progress.
 - [x] `package.json`: `exports` (import/require/types + `./modal.css`), `files: ["dist"]`, `sideEffects: ["*.css"]`
 - [x] Verify consumption from a Node script (import and require)
 
-> Verified: self-reference `import('modal-ts')` ✓ and `require('modal-ts')` ✓
-> (both `Modal.version = 0.1.0`); `modal-ts/modal.css` resolves ✓.
+> Verified: self-reference `import('tiny-modal-dialog')` ✓ and `require('tiny-modal-dialog')` ✓
+> (both `Modal.version = 0.1.0`); `tiny-modal-dialog/modal.css` resolves ✓.
 
 ## Phase 8 — Examples and final docs
 

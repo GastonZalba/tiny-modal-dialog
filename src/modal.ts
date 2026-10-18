@@ -182,7 +182,7 @@ export class Modal extends Emitter<ModalEvents> {
     const appendTo = resolveElement(this._options.appendTo);
     if (!appendTo) {
       throw new Error(
-        `modal-ts: appendTo element "${String(this._options.appendTo)}" not found.`,
+        `tiny-modal-dialog: appendTo element "${String(this._options.appendTo)}" not found.`,
       );
     }
     this._appendTo = appendTo;
@@ -191,7 +191,7 @@ export class Modal extends Emitter<ModalEvents> {
       const el = resolveElement(this._options.el);
       if (!el) {
         throw new Error(
-          `modal-ts: element "${String(this._options.el)}" not found.`,
+          `tiny-modal-dialog: element "${String(this._options.el)}" not found.`,
         );
       }
       this.el = el;
@@ -254,9 +254,11 @@ export class Modal extends Emitter<ModalEvents> {
     const container = html.container;
     this.emit("show", this);
 
-    this._checkScrollbar();
-    this._setScrollbar();
-    document.body.classList.add(CLASS.open);
+    if (!this._isMovable()) {
+      this._checkScrollbar();
+      this._setScrollbar();
+      document.body.classList.add(CLASS.open);
+    }
 
     if (this._construct) this._appendTo.appendChild(container);
 
@@ -307,6 +309,7 @@ export class Modal extends Emitter<ModalEvents> {
 
     window.clearTimeout(this._timers.scrollbar);
     this._timers.scrollbar = window.setTimeout(() => {
+      if (this._isMovable()) return;
       document.body.classList.remove(CLASS.open);
       document.body.style.paddingRight = this._originalBodyPadding;
     }, BACKDROP_TRANSITION);

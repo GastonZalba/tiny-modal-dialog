@@ -4,7 +4,7 @@ Reference guide for working in this repository (humans and agents).
 
 ## What it is
 
-`modal-ts`: a TypeScript modal-window module with fewer settings, **zero
+`tiny-modal-dialog`: a TypeScript modal-window module with fewer settings, **zero
 runtime dependencies**, no Bootstrap, and some targeted improvements (DOM nodes
 not cloned, `setContent()`, `movable`, Enter to submit).
 

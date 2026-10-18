@@ -1,4 +1,4 @@
-// modal-ts — self-contained styles, no Bootstrap.
+// tiny-modal-dialog — self-contained styles, no Bootstrap.
 // All classes use the `mtmodal-` namespace.
 
 $mtmodal-z-index: 1050 !default;
@@ -270,6 +270,12 @@ body.mtmodal-open {
 }
 
 // Movable: dialog centered via CSS until the user drags it.
+// The container lets clicks pass through to the page; only the content
+// re-enables pointer events, so the rest of the DOM stays interactive.
+.mtmodal.mtmodal-movable {
+  pointer-events: none;
+}
+
 .mtmodal-movable .mtmodal-dialog {
   position: absolute;
   top: 50%;

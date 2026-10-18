@@ -1,4 +1,15 @@
-# modal-ts
+# tiny-modal-dialog
+<p align="center">
+    <a href="https://www.npmjs.com/package/tiny-modal-dialog">
+        <img src="https://img.shields.io/npm/v/tiny-modal-dialog.svg" alt="npm version">
+    </a>
+    <a href="https://img.shields.io/npm/dm/tiny-modal-dialog">
+        <img alt="npm" src="https://img.shields.io/npm/dm/tiny-modal-dialog">
+    </a>
+    <a href="https://github.com/gastonzalba/tiny-modal-dialog/blob/master/LICENSE">
+        <img src="https://img.shields.io/npm/l/tiny-modal-dialog.svg" alt="license">
+    </a>
+</p>
 
 Modal windows in **TypeScript** with small configuration, **zero runtime
 dependencies** and no Bootstrap.
@@ -18,14 +29,14 @@ dependencies** and no Bootstrap.
 ## Installation
 
 ```bash
-npm install modal-ts
+npm install tiny-modal-dialog
 ```
 
 ## Usage
 
 ```ts
-import { Modal } from 'modal-ts';
-import 'modal-ts/modal.css';
+import { Modal } from 'tiny-modal-dialog';
+import 'tiny-modal-dialog/modal.css';
 
 const modal = new Modal({
   title: 'Hello',
@@ -39,7 +50,7 @@ modal.show();
 CommonJS:
 
 ```js
-const { Modal } = require('modal-ts');
+const { Modal } = require('tiny-modal-dialog');
 ```
 
 ### Over existing HTML
@@ -82,7 +93,8 @@ const modal = new Modal({ title: 'Edit', content: form });
 
 ```ts
 const modal = new Modal({ title: 'Window', content: '...', movable: true });
-// No backdrop; drag from the header.
+// No backdrop, no body-scroll lock; drag from the header.
+// The rest of the page stays clickable and scrollable.
 ```
 
 ## Options
@@ -99,7 +111,7 @@ const modal = new Modal({ title: 'Window', content: '...', movable: true });
 | `footer` | `boolean \| string \| Node` | `true` | `true`: Cancel/OK buttons. |
 | `headerClose` | `boolean` | `true` | Close button in the header. |
 | `appendTo` | `string \| HTMLElement` | `'body'` | Where to mount the constructed modal. |
-| `movable` | `boolean` | `false` | Draggable from the header; removes the backdrop. |
+| `movable` | `boolean` | `false` | Draggable from the header; removes the backdrop, keeps the page clickable and scrollable. |
 | `theme` | `'light' \| 'dark' \| 'auto'` | `'light'` | Visual theme (see below). |
 | `strings` | `Partial<ModalStrings>` | `{}` | Built-in strings (`ok`, `cancel`, `close`). |
 
@@ -247,7 +259,7 @@ By recompiling the SCSS you can override the variables before importing:
 
 ```scss
 $mtmodal-dark-bg: #101010;
-@use 'modal-ts/src/styles/modal';
+@use 'tiny-modal-dialog/src/styles/modal';
 ```
 
 At runtime, define CSS variables on any ancestor:

@@ -4,7 +4,7 @@ export function build<T extends HTMLElement = HTMLElement>(html: string): T {
   if (!factory) factory = document.createElement("div");
   factory.innerHTML = html.trim();
   const node = factory.firstElementChild as T | null;
-  if (!node) throw new Error(`modal-ts: invalid markup "${html}"`);
+  if (!node) throw new Error(`tiny-modal-dialog: invalid markup "${html}"`);
   factory.innerHTML = "";
   return node;
 }

@@ -19,6 +19,7 @@ function pointer(
 beforeEach(() => {
   document.body.className = '';
   document.body.innerHTML = '';
+  document.body.style.paddingRight = '';
   vi.useFakeTimers();
 });
 
@@ -96,5 +97,24 @@ describe('Modal movable', () => {
     const header = (modal.el as HTMLElement).querySelector('.mtmodal-header') as HTMLElement;
     header.dispatchEvent(pointer('pointerdown', { clientX: 10, clientY: 10 }));
     expect((modal.el as HTMLElement).classList.contains('mtmodal-dragging')).toBe(false);
+  });
+
+  it('does not lock the body scroll', () => {
+    const modal = new Modal({ content: 'x', movable: true });
+    modal.show();
+    vi.advanceTimersByTime(300);
+    expect(document.body.classList.contains('mtmodal-open')).toBe(false);
+    expect(document.body.style.paddingRight).toBe('');
+  });
+
+  it('does not restore the body padding on hide', () => {
+    document.body.style.paddingRight = '12px';
+    const modal = new Modal({ content: 'x', movable: true });
+    modal.show();
+    vi.advanceTimersByTime(300);
+    modal.hide();
+    vi.advanceTimersByTime(300);
+    expect(document.body.style.paddingRight).toBe('12px');
+    expect(document.body.classList.contains('mtmodal-open')).toBe(false);
   });
 });

@@ -3,67 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>modal-ts — examples</title>
+  <title>tiny-modal-dialog — examples</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }
     h1 { margin-top: 0; }
+    .layout { display: flex; gap: 2rem; align-items: flex-start; }
+    .examples { flex: 1; min-width: 0; }
+    .log-panel { flex: 0 0 22rem; position: sticky; top: 2rem; }
     section { margin-bottom: 1.5rem; }
     button { padding: .5rem .75rem; margin: .25rem .25rem .25rem 0; cursor: pointer; }
     #log { background: #f5f5f5; border: 1px solid #ddd; border-radius: .25rem; padding: .75rem;
-      height: 10rem; overflow: auto; font-family: ui-monospace, monospace; font-size: .8rem; white-space: pre-wrap; }
+      height: 24rem; overflow: auto; font-family: ui-monospace, monospace; font-size: .8rem; white-space: pre-wrap; }
     .field { display: block; margin-bottom: .5rem; }
     .field input { display: block; margin-top: .25rem; padding: .4rem; width: 100%; box-sizing: border-box; }
   </style>
 </head>
 <body>
-  <h1>modal-ts — examples</h1>
+  <h1>tiny-modal-dialog — examples</h1>
 
-  <section>
-    <h2>1. Dynamic modal</h2>
-    <button id="btn-dynamic">Open dynamic modal</button>
-  </section>
+  <div class="layout">
+    <div class="examples">
+      <section>
+        <h2>1. Dynamic modal</h2>
+        <button id="btn-dynamic">Open dynamic modal</button>
+      </section>
 
-  <section>
-    <h2>2. Modal with form (Enter submits)</h2>
-    <button id="btn-form">Open form modal</button>
-  </section>
+      <section>
+        <h2>2. Modal with form (Enter submits)</h2>
+        <button id="btn-form">Open form modal</button>
+      </section>
 
-  <section>
-    <h2>3. Static modal (existing DOM, <code>el</code>)</h2>
-    <button id="btn-static">Open static modal</button>
-  </section>
+      <section>
+        <h2>3. Static modal (existing DOM, <code>el</code>)</h2>
+        <button id="btn-static">Open static modal</button>
+      </section>
 
-  <section>
-    <h2>4. Modal movable (draggable, no backdrop)</h2>
-    <button id="btn-movable">Open movable</button>
-  </section>
+      <section>
+        <h2>4. Modal movable (draggable, page stays clickable)</h2>
+        <button id="btn-movable">Open movable</button>
+      </section>
 
-  <section>
-    <h2>5. setContent() + node with listeners</h2>
-    <button id="btn-setcontent">Open and change content</button>
-  </section>
+      <section>
+        <h2>5. setContent() + node with listeners</h2>
+        <button id="btn-setcontent">Open and change content</button>
+      </section>
 
-  <section>
-    <h2>6. Presets alert / confirm</h2>
-    <button id="btn-alert">Modal.alert()</button>
-    <button id="btn-confirm">Modal.confirm()</button>
-  </section>
+      <section>
+        <h2>6. Presets alert / confirm</h2>
+        <button id="btn-alert">Modal.alert()</button>
+        <button id="btn-confirm">Modal.confirm()</button>
+      </section>
 
-  <section>
-    <h2>7. i18n (strings)</h2>
-    <button id="btn-i18n">Open translated modal</button>
-  </section>
+      <section>
+        <h2>7. i18n (strings)</h2>
+        <button id="btn-i18n">Open translated modal</button>
+      </section>
 
-  <section>
-    <h2>8. Dark theme</h2>
-    <button id="btn-dark">Open dark (per modal)</button>
-    <button id="btn-theme-toggle">Toggle global theme</button>
-  </section>
+      <section>
+        <h2>8. Dark theme</h2>
+        <button id="btn-dark">Open dark (per modal)</button>
+        <button id="btn-theme-toggle">Toggle global theme</button>
+      </section>
+    </div>
 
-  <section>
-    <h2>Event log</h2>
-    <div id="log"></div>
-  </section>
+    <div class="log-panel">
+      <h2>Event log</h2>
+      <div id="log"></div>
+    </div>
+  </div>
 
   <div class="mtmodal mtmodal-fade" id="static-modal">
     <div class="mtmodal-dialog">
@@ -140,7 +147,7 @@
     // 4. Movable
     const movable = new Modal({
       title: 'Movable',
-      content: 'Drag this window from the title bar. No backdrop.',
+      content: 'Drag this window from the title bar. The page behind stays clickable.',
       movable: true
     });
     watch(movable, 'movable');
@@ -163,7 +170,7 @@
 
     // 6. Presets
     document.getElementById('btn-alert').addEventListener('click', () => {
-      const alertModal = Modal.alert('This is a modal-ts alert.');
+      const alertModal = Modal.alert('This is a tiny-modal-dialog alert.');
       watch(alertModal, 'alert');
       alertModal.show();
     });
