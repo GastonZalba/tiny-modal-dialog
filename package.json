@@ -51,8 +51,12 @@
     "vite": "^6.4.4",
     "vitest": "^3.2.7"
   },
+  "bugs": {
+    "url": "https://github.com/GastonZalba/tiny-modal-dialog/issues"
+  },
+  "homepage": "https://github.com/GastonZalba/tiny-modal-dialog#readme",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/GastonZalba/tiny-modal-dialog"
   }
 }
