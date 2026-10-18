@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modal-ts — examples</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; line-height: 1.5; }
+    h1 { margin-top: 0; }
+    section { margin-bottom: 1.5rem; }
+    button { padding: .5rem .75rem; margin: .25rem .25rem .25rem 0; cursor: pointer; }
+    #log { background: #f5f5f5; border: 1px solid #ddd; border-radius: .25rem; padding: .75rem;
+      height: 10rem; overflow: auto; font-family: ui-monospace, monospace; font-size: .8rem; white-space: pre-wrap; }
+    .field { display: block; margin-bottom: .5rem; }
+    .field input { display: block; margin-top: .25rem; padding: .4rem; width: 100%; box-sizing: border-box; }
+  </style>
+</head>
+<body>
+  <h1>modal-ts — examples</h1>
+
+  <section>
+    <h2>1. Dynamic modal</h2>
+    <button id="btn-dynamic">Open dynamic modal</button>
+  </section>
+
+  <section>
+    <h2>2. Modal with form (Enter submits)</h2>
+    <button id="btn-form">Open form modal</button>
+  </section>
+
+  <section>
+    <h2>3. Static modal (existing DOM, <code>el</code>)</h2>
+    <button id="btn-static">Open static modal</button>
+  </section>
+
+  <section>
+    <h2>4. Modal movable (draggable, no backdrop)</h2>
+    <button id="btn-movable">Open movable</button>
+  </section>
+
+  <section>
+    <h2>5. setContent() + node with listeners</h2>
+    <button id="btn-setcontent">Open and change content</button>
+  </section>
+
+  <section>
+    <h2>6. Presets alert / confirm</h2>
+    <button id="btn-alert">Modal.alert()</button>
+    <button id="btn-confirm">Modal.confirm()</button>
+  </section>
+
+  <section>
+    <h2>7. i18n (strings)</h2>
+    <button id="btn-i18n">Open translated modal</button>
+  </section>
+
+  <section>
+    <h2>8. Dark theme</h2>
+    <button id="btn-dark">Open dark (per modal)</button>
+    <button id="btn-theme-toggle">Toggle global theme</button>
+  </section>
+
+  <section>
+    <h2>Event log</h2>
+    <div id="log"></div>
+  </section>
+
+  <div class="mtmodal mtmodal-fade" id="static-modal">
+    <div class="mtmodal-dialog">
+      <div class="mtmodal-content">
+        <div class="mtmodal-header">
+          <h4 class="mtmodal-title">Static modal</h4>
+          <button type="button" class="mtmodal-close" data-mt-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="mtmodal-body">
+          This markup already exists on the page and is mapped without rebuilding.
+        </div>
+        <div class="mtmodal-footer">
+          <button type="button" class="mtmodal-btn mtmodal-btn-primary" data-mt-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import '../src/styles/modal.scss';
+    import { Modal } from '../src/index';
+
+    const logEl = document.getElementById('log');
+    const log = (message) => {
+      const line = document.createElement('div');
+      line.textContent = `${new Date().toLocaleTimeString()}  ${message}`;
+      logEl.appendChild(line);
+      logEl.scrollTop = logEl.scrollHeight;
+    };
+
+    const watch = (modal, name) => {
+      modal.on('show', () => log(`[${name}] show`));
+      modal.on('shown', () => log(`[${name}] shown`));
+      modal.on('hide', () => log(`[${name}] hide`));
+      modal.on('hidden', () => log(`[${name}] hidden`));
+      modal.on('dismiss', (_m, _e, button) => log(`[${name}] dismiss ${button ? JSON.stringify(button) : ''}`));
+      modal.on('submit', () => log(`[${name}] submit`));
+    };
+
+    // 1. Dynamic
+    const dynamic = new Modal({
+      title: 'Dynamic modal',
+      content: 'Content generated from JavaScript. Close with the button, Esc or the backdrop.'
+    });
+    watch(dynamic, 'dynamic');
+    document.getElementById('btn-dynamic').addEventListener('click', () => dynamic.show());
+
+    // 2. Form
+    const formNode = document.createElement('form');
+    formNode.innerHTML = `
+      <label class="field">Name<input name="name" autocomplete="off"></label>
+      <label class="field">Email<input name="email" type="email" autocomplete="off"></label>`;
+    formNode.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(formNode);
+      log(`form sent: ${JSON.stringify(Object.fromEntries(data))}`);
+      formModal.hide();
+    });
+    const formModal = new Modal({
+      title: 'Form',
+      content: formNode,
+      footer: false
+    });
+    watch(formModal, 'form');
+    document.getElementById('btn-form').addEventListener('click', () => formModal.show());
+
+    // 3. Static (el)
+    const staticModal = new Modal({ el: '#static-modal' });
+    watch(staticModal, 'static');
+    document.getElementById('btn-static').addEventListener('click', () => staticModal.show());
+
+    // 4. Movable
+    const movable = new Modal({
+      title: 'Movable',
+      content: 'Drag this window from the title bar. No backdrop.',
+      movable: true
+    });
+    watch(movable, 'movable');
+    document.getElementById('btn-movable').addEventListener('click', () => movable.show());
+
+    // 5. setContent + node with listeners
+    const clicky = document.createElement('button');
+    clicky.textContent = 'Button with listener (not cloned)';
+    clicky.addEventListener('click', () => log('click from inserted node (live listener)'));
+    const custom = new Modal({
+      title: 'setContent()',
+      content: 'Initial content in string.',
+      footer: '<button type="button" class="mtmodal-btn mtmodal-btn-primary" data-mt-dismiss="modal">Close</button>'
+    });
+    watch(custom, 'setContent');
+    document.getElementById('btn-setcontent').addEventListener('click', () => {
+      custom.show();
+      setTimeout(() => custom.setContent(clicky), 600);
+    });
+
+    // 6. Presets
+    document.getElementById('btn-alert').addEventListener('click', () => {
+      const alertModal = Modal.alert('This is a modal-ts alert.');
+      watch(alertModal, 'alert');
+      alertModal.show();
+    });
+
+    document.getElementById('btn-confirm').addEventListener('click', () => {
+      const confirmModal = Modal.confirm('Do you confirm this action?');
+      watch(confirmModal, 'confirm');
+      confirmModal.on('dismiss', (_m, _e, button) => {
+        log(`confirm result: ${button ? JSON.stringify(button) : 'null'}`);
+      });
+      confirmModal.show();
+    });
+
+    // 7. i18n
+    document.getElementById('btn-i18n').addEventListener('click', () => {
+      const i18n = new Modal({
+        title: 'Edit profile',
+        content: 'Content with translated buttons.',
+        strings: { ok: 'Guardar', cancel: 'Cancelar', close: 'Cerrar' }
+      });
+      watch(i18n, 'i18n');
+      i18n.show();
+    });
+
+    // 8. Dark theme
+    document.getElementById('btn-dark').addEventListener('click', () => {
+      const dark = new Modal({
+        title: 'Dark mode',
+        content: 'This window uses theme: "dark".',
+        theme: 'dark'
+      });
+      watch(dark, 'dark');
+      dark.show();
+    });
+
+    document.getElementById('btn-theme-toggle').addEventListener('click', () => {
+      const dark = document.documentElement.getAttribute('data-mtmodal-theme') === 'dark';
+      document.documentElement.setAttribute('data-mtmodal-theme', dark ? 'light' : 'dark');
+      log(`global theme: ${dark ? 'light' : 'dark'}`);
+    });
+  </script>
+</body>
+</html>
