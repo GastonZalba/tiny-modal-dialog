@@ -83,6 +83,7 @@ declare class Modal extends Emitter<ModalEvents> {
     hide(): this;
     toggle(): this;
     setContent(content: ModalContent): this;
+    getContent(): ModalContent;
     private _render;
     private _mapDom;
     private _mapHtml;

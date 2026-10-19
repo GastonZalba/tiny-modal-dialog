@@ -156,7 +156,7 @@ translated at the point of use.
 show(): this
 hide(): this
 toggle(): this
-setContent(content: ModalContent): this
+setContent(content: ModalContent): this; getContent(): ModalContent
 get visible(): boolean
 ```
 
@@ -164,8 +164,8 @@ get visible(): boolean
   and emits `shown` when done. Idempotent while active.
 - `hide()` — emits `hide`, reverts classes, removes listeners, cleans the body
   and emits `hidden` when done.
-- `setContent(content)` — replaces the body at runtime; accepts `string | Node | false`.
-  A `Node` is not cloned.
+- setContent(content) - replaces the body at runtime; accepts string | Node | false. A Node is not cloned.
+- `getContent()` - returns the current content (`string | Node | false`).
 - `visible` — `true` when the show animation has finished.
 
 ## Static members

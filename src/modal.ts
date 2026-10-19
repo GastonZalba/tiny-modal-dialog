@@ -348,6 +348,10 @@ export class Modal extends Emitter<ModalEvents> {
     return this;
   }
 
+  getContent(): ModalContent {
+    return this._options.content;
+  }
+
   private _render(): ModalElements {
     const headerClose = build<HTMLButtonElement>(TEMPLATES.headerClose);
     headerClose.setAttribute("aria-label", this._strings.close);

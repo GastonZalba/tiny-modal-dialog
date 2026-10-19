@@ -1,6 +1,6 @@
 {
   "name": "tiny-modal-dialog",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Modal dialog in TypeScript, zero runtime dependencies, no Bootstrap",
   "keywords": [
     "modal",

@@ -348,6 +348,9 @@ var _Modal = class _Modal extends Emitter {
     }
     return this;
   }
+  getContent() {
+    return this._options.content;
+  }
   _render() {
     const headerClose = build(TEMPLATES.headerClose);
     headerClose.setAttribute("aria-label", this._strings.close);

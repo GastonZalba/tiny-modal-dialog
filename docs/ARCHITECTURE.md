@@ -51,7 +51,7 @@ querying `mtmodal-*` inside the given element. If the element has the
 | `Node` | `body.replaceChildren(node)` ← **moves the real node, keeps listeners** |
 
 The same applies to `title` and `footer`. `setContent()` at runtime uses the same
-logic and accepts `false` to clear.
+logic and accepts `false` to clear. `getContent()` returns the current content.
 
 ## Lifecycle and events
 
