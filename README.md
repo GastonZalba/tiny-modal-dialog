@@ -6,7 +6,7 @@
     <a href="https://img.shields.io/npm/dm/tiny-modal-dialog">
         <img alt="npm" src="https://img.shields.io/npm/dm/tiny-modal-dialog">
     </a>
-    <a href="https://github.com/gastonzalba/tiny-modal-dialog/blob/master/LICENSE">
+    <a href="https://github.com/gastonzalba/tiny-modal-dialog/blob/main/LICENSE">
         <img src="https://img.shields.io/npm/l/tiny-modal-dialog.svg" alt="license">
     </a>
 </p>
