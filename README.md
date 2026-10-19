@@ -322,4 +322,9 @@ Starts a **Vite** server over the project root and opens
 directly, so it has **HMR** when editing code or styles (no `npm run build`
 needed).
 
+The same `examples/index.html` also works when served as plain static files
+(e.g. [raw.githack](https://raw.githack.com/GastonZalba/tiny-modal-dialog/main/examples/index.html)):
+without Vite it falls back to the built `dist/index.js` + `dist/modal.css`,
+so after changing `src/` run `npm run build` to refresh the published demo.
+
 See `docs/PLAN.md`, `docs/ARCHITECTURE.md` and `docs/API.md` for more detail.

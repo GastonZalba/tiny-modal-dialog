@@ -92,8 +92,19 @@
   </div>
 
   <script type="module">
-    import '../src/styles/modal.scss';
-    import { Modal } from '../src/index';
+    // Dual mode: under `npm run dev` (Vite) load src/ with HMR;
+    // when served as plain static files (e.g. raw.githack) load the built dist/.
+    let Modal;
+    if (import.meta.env?.DEV) {
+      await import('../src/styles/modal.scss');
+      ({ Modal } = await import('../src/index'));
+    } else {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = '../dist/modal.css';
+      document.head.appendChild(link);
+      ({ Modal } = await import('../dist/index.js'));
+    }
 
     const logEl = document.getElementById('log');
     const log = (message) => {

@@ -20,6 +20,7 @@ checkbox `[x]` = done, `[ ]` = pending. The status column summarizes progress.
 | 10 | Presets `Modal.alert()` / `Modal.confirm()` | ✅ done |
 | 11 | i18n of built-in strings (`strings`) | ✅ done |
 | 12 | Dark theme (CSS variables + `theme` option) | ✅ done |
+| 13 | Examples dual-mode (Vite dev / static via `dist/`) | ✅ done |
 
 ---
 
@@ -162,6 +163,15 @@ checkbox `[x]` = done, `[ ]` = pending. The status column summarizes progress.
 - [x] `test/theme.test.ts` (6 tests)
 
 > Verified: `typecheck` ✓ · `test` ✓ (70 tests) · `build:css` ✓ · documented in `README.md`, `docs/API.md` and `docs/ARCHITECTURE.md`.
+
+---
+
+## Phase 13 — Examples dual-mode (Vite dev / static)
+
+- [x] `examples/index.html` detects Vite (`import.meta.env?.DEV`): dev imports `src/` + SCSS with HMR; static serves from built `dist/index.js` + `dist/modal.css` (link injected at runtime)
+- [x] Same URL works both under `npm run dev` and when published as plain static files (raw.githack)
+
+> Verified: `typecheck` ✓ · `lint` ✓ · `test` ✓ (70 tests) · dev branch and static branch both load the example.
 
 ---
 
